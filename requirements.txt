@@ -4,7 +4,7 @@ beautifulsoup4==4.11.1
 confusable-homoglyphs==3.2.0
 Django==4.0.4
 django-bootstrap4==22.1
-django-registration==3.3
+django-registration-redux==2.10
 djangorestframework==3.13.1
 Pillow==9.1.1
 psycopg2==2.9.3
