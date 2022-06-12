@@ -16,3 +16,15 @@ class Projects(models.Model):
     date=models.DateField(auto_now=True)
     screen1=models.ImageField(upload_to='screenshot/',blank=True)
     screen2=models.ImageField(upload_to='screenshot/',blank=True)
+    
+    
+    
+    class Meta:
+        ordering=['-name']
+
+    def __str__(self):
+        self.name
+    @classmethod
+    def search_project(cls,word):
+        searched=cls.objects.filter(name__icontains=word)
+        return searched
