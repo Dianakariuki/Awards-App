@@ -28,3 +28,12 @@ class Projects(models.Model):
     def search_project(cls,word):
         searched=cls.objects.filter(name__icontains=word)
         return searched
+
+
+class Profile(models.Model):
+    profile=models.ImageField(upload_to='profile/')
+    bio=models.CharField(max_length=60)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    phone=models.IntegerField()
+    class Meta:
+        ordering=['-profile']
