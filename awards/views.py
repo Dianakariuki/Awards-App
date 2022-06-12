@@ -31,3 +31,22 @@ def post(request):
     else:
         form=PostForm()
     return render(request,'post.html',{'form':form})
+
+@login_required(login_url='/accounts/login/')
+def profile(request):
+    current_user=request.user
+    try:
+        profis=Profile.objects.filter(user=current_user)[0:1]
+        user_projects=Projects.objects.filter(user=current_user)
+    except Exception as e:
+        raise  Http404()
+    if request.method=='POST':
+        form=UpdateForm(request.POST,request.FILES)
+        if form.is_valid():
+            profile=form.save(commit=False)
+            profile.user=request.user
+            profile.save()
+        return redirect('profile')
+    else:
+        form=UpdateForm()
+    return render(request,'profile.html', {'form':form,'profile':profis,'projects':user_projects})
