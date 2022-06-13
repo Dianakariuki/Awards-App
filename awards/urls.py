@@ -13,11 +13,11 @@ urlpatterns=[
     re_path(r'^user/profile/$',views.profile,name='profile'),
     re_path(r'^project/(\d+)/',views.project_detail,name='details'),
     re_path(r'^search/projects/results/$',views.search,name="search"),
-    # re_path(r'^ajax/review/(\d+)$',views.ajaxRequest,name='review'),
     re_path(r'^api/projects/$',views.ProjectList.as_view()),
     re_path(r'^api/profile/$',views.ProfileList.as_view()),
     re_path(r'^token/', obtain_auth_token),
     re_path(r'^developer/api/$',views.apiView,name='api'),
+    
 ]
 
 if settings.DEBUG:

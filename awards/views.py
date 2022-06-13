@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import ProjectSerializer,ProfileSerializer
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -17,6 +19,9 @@ def index(request):
         raise  Http404()
     return render(request,'index.html',{"projects":projects})
 
+def logout_user(request):
+    logout(request)
+    return redirect('login')
 
 @login_required(login_url='/accounts/login/')
 def post(request):
@@ -169,3 +174,48 @@ def apiView(request):
     title = "Api"
     profis = Profile.objects.filter(user=current_user)[0:1]
     return render(request, 'api.html', {"title": title, 'profile': profis})
+
+
+# def register_user(request):
+#     if request.user.is_authenticated:
+#         return redirect('/')
+
+#     else:
+#         form = CreateUserForm
+#         title = 'New Account'
+
+#         if request.method == 'POST':
+#             form = CreateUserForm(request.POST)
+#             if form.is_valid():
+#                 form.save()
+#                 return redirect('login')
+
+#     context = {'form': form, 'title': title}
+#     return render(request, 'accounts/registration.html', context)
+
+
+# def login_user(request):
+#     if request.user.is_authenticated:
+#         return redirect('/')
+
+#     else:
+
+#         if request.method == 'POST':
+#             username = request.POST.get('username')
+#             password = request.POST.get('password')
+
+#             user = authenticate(request, username=username, password=password)
+
+#             if user is not None:
+#                 login(request, user)
+#                 return redirect('/')
+#             else:
+#                 messages.info(request, 'Username or password is incorrect.')
+
+#     context = {}
+#     return render(request, 'accounts/login.html', context)
+
+
+# def logout_user(request):
+#     logout(request)
+#     return redirect('login')
