@@ -1,22 +1,27 @@
 from . import views
-from django.urls import re_path
+from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework.authtoken.views import obtain_auth_token
+from django.contrib.auth import views as auth_views
 
 
-#url urlpatterns
+
 
 urlpatterns=[
-    re_path(r'^$',views.index, name='index'),
-    re_path(r'project/post/$',views.post,name='post'),
-    re_path(r'^user/profile/$',views.profile,name='profile'),
-    re_path(r'^project/(\d+)/',views.project_detail,name='details'),
-    re_path(r'^search/projects/results/$',views.search,name="search"),
-    re_path(r'^api/projects/$',views.ProjectList.as_view()),
-    re_path(r'^api/profile/$',views.ProfileList.as_view()),
-    re_path(r'^token/', obtain_auth_token),
-    re_path(r'^developer/api/$',views.apiView,name='api'),
+    path('',views.index, name='index'),
+    path('project/post/',views.post,name='post'),
+    path('user/profile/',views.profile,name='profile'),
+    path('project/',views.project_detail,name='details'),
+    path('search/projects/results/',views.search,name="search"),
+    path('api/projects/',views.ProjectList.as_view()),
+    path('api/profile/',views.ProfileList.as_view()),
+    path('token/', obtain_auth_token),
+    path('developer/api/',views.apiView,name='api'),
+    path( 'login/',auth_views.LoginView.as_view(template_name="registration/login.html"), name="login"),
+    
+    
+    
     
 ]
 

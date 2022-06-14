@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'awards',
     'rest_framework',
-    'bootstrap4'
+    'rest_framework.authtoken',
+    'bootstrap4',
+    'tinymce',
     
 ]
 
@@ -80,7 +82,7 @@ WSGI_APPLICATION = 'projects.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'awards',
+        'NAME': 'projects',
         'USER': 'moringa',
     'PASSWORD':'access',
     }
