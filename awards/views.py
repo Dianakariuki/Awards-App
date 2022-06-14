@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .forms import PostForm,RateForm,ReviewForm,UpdateForm
+from .forms import PostForm,RateForm, RegisterForm,ReviewForm,UpdateForm
 from .models import Projects,Rates,Comments,Profile
 from django.http import HttpResponse,Http404,HttpResponseRedirect,JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -19,6 +19,14 @@ def index(request):
         raise  Http404()
     return render(request,'index.html',{"projects":projects})
 
+def register(request):
+    form = RegisterForm()
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    return render(request,'registration_html',{'form':form})
 
 def login_user(request):
     if request.user.is_authenticated:
@@ -198,47 +206,3 @@ def apiView(request):
     profis = Profile.objects.filter(user=current_user)[0:1]
     return render(request, 'api.html', {"title": title, 'profile': profis})
 
-
-# def register_user(request):
-#     if request.user.is_authenticated:
-#         return redirect('/')
-
-#     else:
-#         form = CreateUserForm
-#         title = 'New Account'
-
-#         if request.method == 'POST':
-#             form = CreateUserForm(request.POST)
-#             if form.is_valid():
-#                 form.save()
-#                 return redirect('login')
-
-#     context = {'form': form, 'title': title}
-#     return render(request, 'accounts/registration.html', context)
-
-
-# def login_user(request):
-#     if request.user.is_authenticated:
-#         return redirect('/')
-
-#     else:
-
-#         if request.method == 'POST':
-#             username = request.POST.get('username')
-#             password = request.POST.get('password')
-
-#             user = authenticate(request, username=username, password=password)
-
-#             if user is not None:
-#                 login(request, user)
-#                 return redirect('/')
-#             else:
-#                 messages.info(request, 'Username or password is incorrect.')
-
-#     context = {}
-#     return render(request, 'accounts/login.html', context)
-
-
-# def logout_user(request):
-#     logout(request)
-#     return redirect('login')

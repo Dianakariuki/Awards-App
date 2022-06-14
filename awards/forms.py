@@ -20,3 +20,9 @@ class UpdateForm(forms.ModelForm):
     class Meta:
         model=Profile
         exclude=['user']
+
+
+class RegisterForm(forms.ModelForm):
+    class Meta:
+        model=Profile
+        exclude=['user']

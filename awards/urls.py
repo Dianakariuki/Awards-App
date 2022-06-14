@@ -19,7 +19,7 @@ urlpatterns=[
     path('token/', obtain_auth_token),
     path('developer/api/',views.apiView,name='api'),
     path( 'login/',auth_views.LoginView.as_view(template_name="registration/login.html"), name="login"),
-    
+    path( 'logout/',auth_views.LogoutView.as_view(template_name="registration/login.html"), name="logout"),
     
     
     
