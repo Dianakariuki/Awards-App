@@ -1,5 +1,7 @@
-from .models import Projects,Rates,Comments,Profile
+from .models import Projects,Rates,Comments,Profile,User 
 from django import forms
+from django.contrib.auth.forms import UserCreationForm  
+from django.contrib.auth.models import User 
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -22,7 +24,7 @@ class UpdateForm(forms.ModelForm):
         exclude=['user']
 
 
-class RegisterForm(forms.ModelForm):
+class RegisterForm(UserCreationForm):
     class Meta:
-        model=Profile
-        exclude=['user']
+        model=User
+        fields = ["username","email","password1","password2"]

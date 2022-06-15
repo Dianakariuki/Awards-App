@@ -37,7 +37,7 @@
       <p>{{user.email}}</p>
 
       <p>You have {{projects|length}} Projects</p>
-      <a class="btn btn-outline-danger" href="/logout/">Logout</a>
+      <a class="btn btn-outline-danger" href="{% url 'login' %}">Logout</a>
 
 
       <button id='profile' data-toggle="modal" data-target="#modalSubscriptionForm" class="btn btn-default" type="button" name="button" >Update Profile</button>

@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 from .serializer import ProjectSerializer,ProfileSerializer
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth.models import User 
 
 # Create your views here.
 def index(request):
@@ -26,25 +27,26 @@ def register(request):
         if form.is_valid():
             form.save()
             return redirect('login')
-    return render(request,'registration_html',{'form':form})
+    return render(request,'registration/registration_form.html',{'form':form})
 
 def login_user(request):
-    if request.user.is_authenticated:
-        return redirect('/')
+    # if request.user.is_authenticated:
+    #     return redirect('/')
 
-    else:
+    # else:
 
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            password = request.POST.get('password')
+    if request.method == 'POST':
+        
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-            user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=username, password=password)
 
-            if user is not None:
-                login(request, user)
-                return redirect('/')
-            else:
-                messages.info(request, 'Username or password is incorrect.')
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            messages.info(request, 'Username or password is incorrect.')
 
     context = {}
     return render(request, 'registration/login.html', context)
@@ -68,7 +70,7 @@ def post(request):
         form=PostForm()
     return render(request,'post.html',{'form':form})
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='login')
 def profile(request):
     current_user=request.user
     try:
